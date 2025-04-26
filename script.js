@@ -6,7 +6,7 @@ const more = document.getElementById('more');
 
 const apiURL = 'https://api.lyrics.ovh';
 
-// Search by song or artist
+// lyrics or song title 
 async function searchSongs(term) {
   const res = await fetch(`${apiURL}/suggest/${term}`);
   const data = await res.json();
@@ -32,7 +32,6 @@ form.addEventListener('submit', (e) => {
 
 
 // Show song and artist in the DOM
-// NOTE: Yes, this uses the insecure .innerHTML.
 function showDataUnsafe(lyrics) {
     result.innerHTML = `
       <ul class="songs">
@@ -118,7 +117,7 @@ function showDataUnsafe(lyrics) {
 
 
 
-  // Get lyrics button click
+  // get lyrics button click
 result.addEventListener('click', (e) => {
     const clickedEl = e.target;
   
@@ -164,15 +163,15 @@ result.addEventListener('click', (e) => {
       return;
     }
   
-    // Create heading
+    // artist and song title
     const heading = document.createElement('h2');
     const strong = document.createElement('strong');
     strong.textContent = artist;
   
-    heading.append(strong, ` -> ${songTitle}`);
+    heading.append(strong, ` > ${songTitle}`);
     result.append(heading);
   
-    // Create lyrics block with line breaks
+    // lyric formatting
     const span = document.createElement('span');
     const lines = data.lyrics.split(/\r\n|\r|\n/);
     lines.forEach((line, index) => {
